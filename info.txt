@@ -1,0 +1,16 @@
+table 생성 시
+1. tbl_admin
+2. tbl_course
+3. tbl_assignment
+4. tbl_groups
+5. tbl_submit
+6. tbl_student
+7. tbl_noticeboard
+8. tbl_fileboard
+9. tbl_chatroom
+10. tbl_attendance
+11. tbl_test
+12. tbl_grade
+13. tbl_fileupload
+14. tbl_faboard
+순서로 실행하고 dummy data 입력 시에도 위의 순서와 동일하게 넣어주세요.
