@@ -58,6 +58,12 @@
 <title>에이콘아카데미 과제관리</title>
 <%
 	}
+
+	if (currPage.equals("FileNotice")) {
+%>
+<title>에이콘아카데미 파일공유</title>
+<%		
+	}
 %>
 
 
