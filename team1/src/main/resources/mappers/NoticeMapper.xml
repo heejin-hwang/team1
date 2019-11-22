@@ -55,8 +55,8 @@
 				n.subject,
 				n.hits,
 				n.admin_id,
-				n.update_date,
 				n.upload_date,
+				n.update_date,
 				a.name
 				
 			FROM

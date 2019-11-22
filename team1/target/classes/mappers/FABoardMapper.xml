@@ -12,37 +12,37 @@
 	  </insert>
 	  
 	  <select id="read" resultType="com.acorn.team1.domain.FABoardVO">
-	  	 select bno, title, content, writer, regdate, viewcnt
-	  	 from tbl_FABoard where bno=#{bno}
+	  	 select id, title, content, writer, regdate, viewcnt
+	  	 from tbl_faBoard where id=#{id}
 	  
 	  </select>
 	  
 	  <update id="update">
 	  	 update tbl_FABoard set title=#{title}, content=#{content}
-	  	 where bno=#{bno}
+	  	 where id=#{id}
 	  
 	  </update>
 	  
 	  
 	  <delete id="delete">
-	  	 delete from tbl_FABoard where bno=#{bno}
+	  	 delete from tbl_FABoard where id=#{id}
 	  </delete>
 	  
   
   	  <update id="updateViewcnt">
 		UPDATE tbl_FABoard SET viewcnt = viewcnt + 1
-		WHERE bno = #{bno}
+		WHERE id = #{id}
 	  </update>
 	
 	  
 	   <select id="listCriteria" resultType="com.acorn.team1.domain.FABoardVO">
 	  	<![CDATA[
 	  	select
-	  		bno, title, content, writer, regdate, viewcnt
+	  		id, title, content, writer, regdate, viewcnt
 	  	from
 	  		tbl_FABoard
-	  	where bno > 0
-	  	order by bno desc, regdate desc
+	  	where id > 0
+	  	order by id desc, regdate desc
 	  	limit #{pageStart}, #{perPageNum}
 	  	]]>
 	  </select>
@@ -50,7 +50,7 @@
 	  <select id="countPaging" resultType="int">
 	  	<![CDATA[
 	  	select
-	  		count(bno)
+	  		count(id)
 	  	from
 	  		tbl_FABoard
 	  	]]>
@@ -63,13 +63,13 @@
 	  	from
 	  		tbl_faboard
 	  	where
-	  		bno > 0
+	  		id > 0
 	  	]]>
 	  	
 	  	<include refid="search"></include>
 	  	
 	  	<![CDATA[	
-	  	order by bno desc
+	  	order by id desc
 	  	limit #{pageStart}, #{perPageNum}
 	  	]]>
 	  </select>
@@ -78,11 +78,11 @@
 	  <select id="listSearchCount" resultType="int">
 	  	<![CDATA[
 	  	select
-	  		count(bno)
+	  		count(id)
 	  	from
 	  		tbl_FABoard
 	  	where
-	  		bno > 0
+	  		id > 0
 	  	]]>
 	  	
 	   <include refid="search"></include>

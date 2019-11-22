@@ -1,16 +1,20 @@
 package com.acorn.team1.service;
 
 import java.io.File;
+import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.io.Resources;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn.team1.domain.FileDTO;
@@ -44,6 +48,10 @@ public class FileNoticeServiceImpl implements FileNoticeService {
 	/*해당 기능을 구현한 후 결과를 도출하기 위한 작업*/
 	private String result;
 	
+	private String resource = "fileupload.properties";
+	private Properties properties = new Properties();
+	
+	
 	/*----------------------------검색기능 및 게시글 목록 보기--------------------------------------------*/
 	@Override
 	public List<FileNoticeVO> listSearch(SearchCriteria cri, HttpSession session) throws Exception {
@@ -74,6 +82,7 @@ public class FileNoticeServiceImpl implements FileNoticeService {
 	} //listSearchCount
 
 /*----------------------------게시글 추가--------------------------------------------*/
+	@Transactional
 	@Override
 	public String create(FileNoticeDTO dto) throws Exception {
 		
@@ -137,8 +146,12 @@ public class FileNoticeServiceImpl implements FileNoticeService {
 	} // read
 
 /*---------------------------- 게시글 수정 --------------------------------------------*/
+	@Transactional
 	@Override
 	public String update(FileNoticeDTO dto) throws Exception {
+		
+		Reader reader = Resources.getResourceAsReader(resource);
+		properties.load(reader);
 		
 		/*==== 특수문자를 지정해줘서 스크립트 공격 방어 ====*/
 		String subject = dto.getSubject();
@@ -166,7 +179,7 @@ public class FileNoticeServiceImpl implements FileNoticeService {
 				/*== 저장소에 있는 해당 파일 삭제 작업*/
 				FileVO fileVo = Fdao.file_info(file_id);
 				
-				File file = new File(fileVo.getPath(), fileVo.getName_key());
+				File file = new File(properties.getProperty("uploadPath")+fileVo.getPath(), fileVo.getName_key());
 				file.delete();
 				
 				/*== DB에 저장되어 있는 file정보 제거 ==*/
@@ -206,6 +219,9 @@ public class FileNoticeServiceImpl implements FileNoticeService {
 	@Override
 	public List<FileDTO> insertFileInfo(MultipartFile[] files) throws Exception {
 		
+		Reader reader = Resources.getResourceAsReader(resource);
+		properties.load(reader);
+		
 		FileDTO fileDTO = new FileDTO();
 
 		List<FileDTO> fileList = new ArrayList<FileDTO>();
@@ -217,10 +233,11 @@ public class FileNoticeServiceImpl implements FileNoticeService {
 		String fileExt = null;
 		String fileNameKey = null;
 		String fileSize = null;
+		String fileSaveFolder = date.format(today);
 		
 		// 파일이 저장될 Path 경로 설정 임시파일을 거쳐 실제 저장소에 저장
-		String uploadTempFilePath = "C:\\temp\\uploadTemp";
-		String uploadTargetFilePath = "C:/temp/filenotice/"+date.format(today);
+		String uploadTempFilePath = properties.getProperty("uploadTempFilePath");
+		String uploadTargetFilePath = properties.getProperty("uploadPath")+fileSaveFolder;
 		
 		if (files != null && files.length > 0 ) {
 
@@ -268,7 +285,7 @@ public class FileNoticeServiceImpl implements FileNoticeService {
 				fileDTO = new FileDTO();
 				fileDTO.setName(fileName);
 				fileDTO.setName_key(fileNameKey);
-				fileDTO.setPath(uploadTargetFilePath);
+				fileDTO.setPath(fileSaveFolder);
 				fileDTO.setSize(fileSize);
 				
 				fileList.add(fileDTO);
@@ -283,10 +300,13 @@ public class FileNoticeServiceImpl implements FileNoticeService {
 	@Override
 	public String delete(int id) throws Exception {
 		
+		Reader reader = Resources.getResourceAsReader(resource);
+		properties.load(reader);
+		
 		/*=== 게시글의 포함된 파일 삭제 ===*/
 		List<FileVO> files = Fdao.getFN_File(id);
 		for(FileVO Notice_file : files) {
-			File file = new File(Notice_file.getPath(), Notice_file.getName_key());
+			File file = new File(properties.getProperty("uploadPath")+Notice_file.getPath(), Notice_file.getName_key());
 			file.delete();
 		}
 	

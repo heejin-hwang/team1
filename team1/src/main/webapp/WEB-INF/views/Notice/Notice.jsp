@@ -155,7 +155,7 @@
                     	</a>
                     </td>
                     <td>${list.name}</td>
-                    <td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.update_date}"/></td>
+                    <td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.upload_date}"/></td>
                     <td>${list.hits}</td>
                 </tr>
                 </c:forEach>
