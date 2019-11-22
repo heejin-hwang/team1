@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace ="com.acorn.team1.mapper.myPageMapper">
+  
+      	<!-- 회원정보 수정 인증 -->
+   <select id ="authorization" resultType ="com.acorn.team1.domain.MyPage_authVO">
+   
+	   SELECT id, password
+	   FROM tbl_admin 
+	   WHERE id =#{userId} and password =#{password}
+	   UNION
+	   SELECT id, password
+	   FROM tbl_student 
+	   WHERE id =#{userId} and password =#{password}
+  
+ 	</select>
+  
+  	 <!-- 회원정보 수정 -->
+   	<update id = "updateStudentInfo" parameterType="com.acorn.team1.domain.UpdateStudentByStudentDTO">
+	  update tbl_student 
+	  set 
+	  id = #{userId},
+	  mobile_phone = #{mobile_phone}, 
+	  temporarily_number = #{temporarily_number}, 
+	  password = #{password}, 
+	  address = #{address}, 
+	  detail_address = #{detail_address}
+	  where id= #{id}
+	
+	</update>
+  
+
+  		<!-- 매일 출석 정보 자동입력 스케줄러-->
+  	<insert id ="insertAttendance">
+  	
+	   INSERT INTO tbl_attendance(student_id,  course_code, admin_id, start_date_time)
+	   SELECT S.id, S.course_code, C.admin_id, null
+	   FROM tbl_student as S Left join tbl_course as C on S.course_code = C.code
+	   WHERE now() between C.start_date and C.end_date
+   
+    </insert>
+    
+    	<!-- 출석하기 전 기본 정보 가져오기 -->
+    <select id ="startTimeChecked" resultType ="com.acorn.team1.domain.MyPageVO">
+	   
+	    SELECT student_id, start_date_time, end_date_time, start_checked, end_checked, state
+	    FROM tbl_attendance 
+	    where student_id =#{userId} AND start_checked =false 
+	    And date_format(start_date_time, '%y:%M:%e') like date_format(NOW(), '%y:%M:%e') 
+  
+   	</select>
+   	
+	 	<!--출석체크 시간 업데이트 -->
+<!--  	<update id ="updateStartTime">
+ 	
+	 	UPDATE tbl_attendance 
+	 	SET start_date_time=#{next},
+	 	attendance_key = #{sessionId},
+	 	start_checked = true
+	 	WHERE student_id = #{userId} AND start_checked = false
+	 	
+	</update> -->
+	
+	<update id ="updateStartTime">
+		UPDATE tbl_attendance 
+	  	SET start_date_time=#{next}, attendance_key = #{sessionId}, start_checked = true,
+			state = (CASE
+			       WHEN date_format(start_date_time, '%H:%i:%s') between '07:00:00' and '09:40:59' THEN '정상'
+	               WHEN date_format(start_date_time, '%H:%i:%s') between '09:41:00' and '13:40:59' THEN '지각'
+	               WHEN date_format(start_date_time, '%H:%i:%s') between '13:41:00' and '18:40:59' THEN '결석'
+	               END)
+		 WHERE student_id = #{userId} AND start_checked = false
+			 And date_format(start_date_time, '%y:%c:%e') like date_format(NOW(), '%y:%c:%e') 
+		
+	</update>
+	
+	    <!-- 출석하기 시 기본 정보 다시 가져오기 -->
+    <select id ="startTimeCheckedAgain" resultType ="com.acorn.team1.domain.MyPageVO">
+	   
+	    SELECT student_id, start_date_time, end_date_time, start_checked, end_checked, state 
+	    FROM tbl_attendance
+	    where student_id =#{userId} And start_checked = true  
+	 	   And date_format(start_date_time, '%y:%c:%e')  like date_format(NOW(), '%y:%c:%e') 
+  
+ 	</select>
+	
+	   <!--체크아웃 정보 가져오기-->
+	<select id ="endTimeChecked" resultType ="com.acorn.team1.domain.MyPageVO">
+   
+	    SELECT student_id, start_date_time, end_date_time, start_checked, end_checked, state
+	    FROM tbl_attendance 
+	    where student_id =#{userId} And start_checked =true And end_checked = false
+	 	   And date_format(start_date_time, '%y:%c:%e') like date_format(NOW(), '%y:%c:%e') 
+  
+ 	</select>
+ 	
+ 	   <!--체크아웃 시간 업데이트 -->
+ <!-- 	<update id ="updateEndTime">
+  	
+		UPDATE tbl_attendance 
+		SET end_date_time = null, end_checked = true
+		WHERE student_id =  #{userId} And start_checked =true AND end_checked = false
+	 	
+	</update> -->
+	
+	<update id ="updateEndTime">
+	<![CDATA[
+	    UPDATE tbl_attendance 
+	  	SET end_date_time=null, end_checked = true ,
+			state = (CASE
+			       WHEN  state like '정상' AND date_format(end_date_time, '%H:%i:%s') between '18:35:00' and '21:00:59' THEN '정상'
+	               WHEN  state like '정상' AND date_format(end_date_time, '%H:%i:%s') between '13:41:00' and '18:29:59' THEN '조퇴'
+	               WHEN  state like '정상' AND date_format(end_date_time, '%H:%i:%s') between '07:00:00' and '13:40:59' THEN '결석'
+	               WHEN  state like '지각' AND (unix_timestamp(end_date_time) -unix_timestamp(start_date_time) )< (4*60*59) THEN '결석'
+	               END) 
+		    WHERE student_id = #{userId} AND end_checked = false
+		 			And date_format(start_date_time, '%y:%c:%e') like date_format(NOW(), '%y:%c:%e') 
+		
+		 ]]>
+		
+	</update>
+	
+	
+
+      <!-- 체크아웃 시 기본 정보 다시 가져오기 -->
+    <select id ="endTimeCheckedAgain" resultType ="com.acorn.team1.domain.MyPageVO">
+	   
+	    SELECT student_id, start_date_time, end_date_time, start_checked, end_checked, state 
+	    FROM tbl_attendance 
+	    WHERE student_id =#{userId} And start_checked = true  And end_checked = true
+     		   And date_format(start_date_time, '%y:%c:%e') like date_format(NOW(), '%y:%c:%e') 
+ 	</select>
+ 	 	
+<!--  	  출석률 가져오기
+     <select id ="attendance_rate" resultType ="int">
+     
+  		SELECT (unix_timestamp(now())-unix_timestamp(start_date))/(unix_timestamp(end_date) -unix_timestamp(start_date))*100  
+		FROM tbl_course
+		WHERE code=#{course_code};
+  
+   	</select> -->
+   	
+
+     
+ 		<!-- 출석현황 가져오기 -->
+     <select id ="attendanceInfo" resultType ="String">
+	   
+	    SELECT A.state
+	    FROM tbl_attendance as A join tbl_student as S on A.student_id = S.id
+		WHERE S.id = #{userId} 
+  
+   	</select>
+
+	 <!-- [학생] 출석 리스트 가져오기 -->
+	<select id ="attendanceList_student" resultType ="com.acorn.team1.domain.MyPageVO">
+	
+   	<![CDATA[
+			SELECT  S.id, A.start_date_time, A.end_date_time, A.state
+			FROM tbl_attendance as A join tbl_student as S on A.student_id = S.id
+			WHERE S.id = #{userId}
+		]]>
+		
+		
+ 	</select>
+
+   	
+	  <!-- [강사]학생 출석 현황 리스트 가져오기 -->
+	<select id ="attendanceList_T" resultType ="com.acorn.team1.domain.MyPageVO">
+	
+   	<![CDATA[
+			SELECT  S.name, A.student_id, A.start_date_time, A.end_date_time, A.state
+			FROM tbl_student as S join tbl_attendance as A on S.id = A.student_id
+			WHERE S.course_code= #{course_code}
+			And date_format(start_date_time, '%y:%M:%e') like date_format(NOW(), '%y:%M:%e') 
+			
+		  
+  
+		]]>
+		
+		
+ 	</select>
+ 	
+ 	
+ 	  <!-- 시험정보 가져오기-학생-->
+    <select id ="getGrade_student" resultType ="com.acorn.team1.domain.MyPageVO">
+	   
+	<![CDATA[
+	    SELECT G.id, G.score, G.student_id, G.test_id, G.admin_id, T.name, T.date, T.course_code
+	    FROM tbl_grade as G join tbl_test T on T.id= G.test_id
+	    WHERE G.student_id=#{userId} 
+    ]]>
+ 	</select>
+ 	
+ 	
+ 	 	 	  <!-- 마지막 성적 정보-->
+    <select id ="last_score" resultType ="int">
+	   
+	<![CDATA[
+	   SELECT  G.score
+	    FROM tbl_grade as G join tbl_test T on T.id= G.test_id
+	    WHERE G.student_id=#{userId} 
+	  
+    ]]>
+ 	</select>
+
+ 	
+         <!--시험정보 가져오기-관리자 -->
+    <select id ="getGrade_admin" resultType ="com.acorn.team1.domain.MyPageVO">
+	   
+	<![CDATA[
+	    SELECT G.id, G.score, G.student_id, G.test_id, G.admin_id, T.name, T.date, T.course_code
+	    FROM tbl_grade as G join tbl_test T on T.id= G.test_id
+	    
+    ]]>
+ 	</select>
+ 	
+ 	         <!--시험정보 가져오기-->
+    <select id ="getTest_T" resultType ="com.acorn.team1.domain.MyPageVO">
+	
+	    SELECT id, admin_id, name, date, course_code
+	    FROM tbl_test 
+	    WHERE course_code=#{course_code}
+	    ORDER BY id DESC  limit 1
+
+ 	</select>
+ 	
+ 		 <!--시험정보 가져오기-강사 -->
+ 	 <select id ="getGrade_T" resultType ="com.acorn.team1.domain.MyPageVO">
+	   
+	<![CDATA[
+	    SELECT name, id
+	    FROM tbl_student
+	    WHERE course_code=#{course_code}
+	     
+	    
+    ]]>
+ 	</select> 
+  	 <!--시험정보 가져오기-강사 -->
+ <!-- 	 <select id ="getGrade_T" resultType ="com.acorn.team1.domain.MyPageVO">
+	   
+	<![CDATA[
+	    SELECT G.id, G.score, G.student_id, T.id, G.admin_id, T.name, T.date, T.course_code
+	    FROM tbl_grade as G join tbl_test T on T.id= G.test_id
+	    WHERE T.course_code=#{course_code}
+	     ORDER BY T.id DESC  limit 1
+	    
+    ]]>
+ 	</select>  -->
+ 	
+ 	  <!--시험점수 넣기-강사 -->
+    <insert id ="insertGrade_T" >
+	   
+	INSERT INTO tbl_grade(score,student_id,test_id,admin_id)
+	VALUES 
+	<!--  <foreach collection="list" item="score"  index="index" separator=",">
+ -->
+	 
+	(#{score},#{userId}, #{test_id},#{admin_id});
+	<!-- </foreach> -->
+	
+	   
+ 	</insert>
+ 	
+ 	
+ 	   		<!-- 과정 진행률 가져오기 -->
+   	 <select id ="course_rate" resultType ="int">
+   		 SELECT count( DISTINCT date_format(start_date_time, '%y,%c,%e'))
+   		 FROM tbl_attendance
+   		 WHERE course_code=#{course_code}
+   	
+     </select>
+ 	
+ 	
+ 	 	 <!--수강정보 가져오기 - 관리자 -->
+ 	 <select id ="getAttendanceInfo_A" resultType ="com.acorn.team1.domain.MyPageVO">
+	   
+	<![CDATA[
+	    SELECT name
+		FROM tbl_course
+		WHERE state = 'Running'
+    ]]>
+ 	</select>
+ 	
+ 	 	 	 <!--수강정보 가져오기 - 관리자 -->
+ 	 <select id ="getPCouseInfo_A" resultType ="com.acorn.team1.domain.MyPageVO">
+	   
+	<![CDATA[
+	    SELECT name
+		FROM tbl_course
+		WHERE state = 'Planning'
+    ]]>
+ 	</select>
+ 	
+<!--  	 	   		마지막시험정보  가져오기 -강사
+   	 <select id ="getLastTest_T" resultType ="com.acorn.team1.domain.MyPageVO">
+   		 SELECT name, date
+   		 FROM tbl_test
+   		 ORDER BY id DESC limit 1;
+   	
+     </select>
+ 	 -->
+ 	 	 	 <!--마지막시험정보 평균 가져오기 -강사 -->
+ 	 <select id ="getLastTestScore_T" resultType ="int">
+	   
+	     SELECT avg(score)
+   		 FROM tbl_grade 
+         WHERE test_id like (SELECT Max(id) FROM tbl_test) 
+	
+ 	</select>
+  </mapper>

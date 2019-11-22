@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acorn.team1.mapper.CourseMapper">
+
+	<!-- 반 이름 전체 보기 -->
+	<select id="courseName" resultType="com.acorn.team1.domain.CourseVO">
+		SELECT
+			name, code
+		FROM
+			tbl_course
+		<where>
+			<if test="admin_id != null and admin_id != ''.toString()">
+				admin_id = #{admin_id}
+			</if>
+		</where>
+	</select>
+	
+	
+	<!-- 반 명 조회 -->
+	<select id="selectedCourseName" resultType="String">
+		SELECT
+			name
+		FROM
+			tbl_course
+		WHERE
+			code = #{course_code}
+	</select>
+	
+	<!-- 코드 조회 -->
+	<select id="selectedCourseCode" resultType="int">
+		SELECT
+			code
+		FROM
+			tbl_course
+		WHERE
+			name = #{name}
+	</select>
+	
+	
+	
+	<!--  course_code 학생 일때  -->
+	<select id="Scourse_code" resultType="String">
+		SELECT
+			code
+		FROM
+			tbl_student
+		WHERE
+			id = #{student_id}
+	</select>
+	
+</mapper>

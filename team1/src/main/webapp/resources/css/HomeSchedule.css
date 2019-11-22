@@ -1,0 +1,55 @@
+#schedule {
+   text-align: center;
+}
+
+.schedule_content td {
+   width: 33%;
+    height: 300px;
+    font-size: 14px;
+}
+
+.schedule_content td.focusMonth {
+   box-shadow: 0 1px 9px 1px rgba(0, 0, 0, 0.28);
+}
+
+.schedule_content td p {
+   line-height: 1em;
+}
+
+.event {
+    margin: 40px auto;
+}
+
+div.event_desc {
+   text-align: left;
+   padding-left: 20px;
+    flex: 65%;
+    line-height: 35px;
+    display: inline-block;
+}
+
+.event1_cate, .event2_cate, .event3_cate, .event4_cate {
+    flex: 35%;
+    height: 35px;
+    color: #fff;
+    font-weight: bold;
+    line-height: 35px;
+    width: 150px;
+    display: inline-block;
+}
+
+.event1_cate {
+   background: linear-gradient(110deg, #4FB0C6 50%, #4F86C6 50%);
+}
+
+.event2_cate {
+    background: linear-gradient(110deg, #EC6A5C 50%, #AF4034 50%);
+}
+
+.event3_cate {
+    background: linear-gradient(110deg, #C5C6B6 50%, #8b8687 50%);
+}
+
+.event4_cate {
+    background: linear-gradient(110deg, #75D701 50%, #56A902 50%);
+}

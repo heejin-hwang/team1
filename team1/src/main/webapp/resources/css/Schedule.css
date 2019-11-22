@@ -1,0 +1,173 @@
+#schedule {
+	text-align: center;
+}
+
+#category {
+    display: flex;
+    width: 750px;
+    margin: 20px auto;
+    padding: 30px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.category_sub {
+    flex: 25%;
+}
+
+.category_sub1, .category_sub2, .category_sub3, .category_sub4 {
+    display: flex;
+}
+
+.category_sub1 > p, .category_sub2 > p, .category_sub3 > p, .category_sub4 > p {
+    flex: 65%;
+    margin: 0;
+    padding: 0;
+    line-height: 35px;
+}
+
+.category_sub1 div, .category_sub2 div, .category_sub3 div, .category_sub4 div {
+    margin: 0;
+    padding: 0;
+}
+
+#category_box1 {
+    flex: 35%;
+    background: linear-gradient(110deg, #4FB0C6 50%, #4F86C6 50%);
+    height: 35px;
+    color: #fff;
+    font-weight: bold;
+}
+
+#category_box2 {
+    flex: 35%;
+    background: linear-gradient(110deg, #EC6A5C 50%, #AF4034 50%);
+    height: 35px;
+    color: #fff;
+    font-weight: bold;
+}
+
+#category_box3 {
+    flex: 35%;
+    background: linear-gradient(110deg, #C5C6B6 50%, #8b8687 50%);
+    height: 35px;
+    color: #fff;
+    font-weight: bold;
+}
+
+#category_box4 {
+    flex: 35%;
+    background: linear-gradient(110deg, #75D701 50%, #56A902 50%);
+    height: 35px;
+    color: #fff;
+    font-weight: bold;
+}
+
+#schedule_top {
+    text-align: center;
+}
+
+#schedule_btn1 {
+	background-color: #3C6188;
+	color: #fff;
+	border: none;
+	display: inline;
+	width: 150px;
+	height: 35px;
+	line-height: 35px;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+#schedule_btn2 {
+	display: inline;
+	margin: 0 50px;
+    line-height: 35px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#schedule_btn3 {
+	display: inline;
+	background-color: #3C6188;
+	color: #fff;
+	border: none;
+	width: 150px;
+	height: 35px;
+	line-height: 14px;
+	border-radius: 5px;
+	font-size: 13px;
+}
+
+#schedule_btn1:focus, #schedule_btn3:focus {
+	color: #3C6188;
+	border: 1px solid #3C6188;
+	background-color: #fff;
+}
+
+#schedule_year {
+    width: 100%;
+    text-align: center;
+}
+
+.schedule_month {
+    font-weight: bold;
+    color: #3C6188;
+}
+
+.schedule_month td {
+    border-top: 5px solid #3C6188;
+    width: 33%;
+    table-layout: fixed;
+}
+
+.schedule_content td {
+	width: 33%;
+    height: 300px;
+    font-size: 14px;
+}
+
+.schedule_content td.focusMonth {
+	box-shadow: 0 1px 9px 1px rgba(0, 0, 0, 0.28);
+}
+
+.schedule_content td p {
+	line-height: 1em;
+}
+
+.event {
+    display: flex;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+div.event_desc {
+	width: 100%;
+	text-align: left;
+	padding-left: 20px;
+    flex: 65%;
+}
+
+.event1_cate, .event2_cate, .event3_cate, .event4_cate {
+    flex: 35%;
+    height: 35px;
+    color: #fff;
+    font-weight: bold;
+    line-height: 35px;
+}
+
+.event1_cate {
+	background: linear-gradient(110deg, #4FB0C6 50%, #4F86C6 50%);
+}
+
+.event2_cate {
+    background: linear-gradient(110deg, #EC6A5C 50%, #AF4034 50%);
+}
+
+.event3_cate {
+    background: linear-gradient(110deg, #C5C6B6 50%, #8b8687 50%);
+}
+
+.event4_cate {
+    background: linear-gradient(110deg, #75D701 50%, #56A902 50%);
+}

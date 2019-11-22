@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace ="com.acorn.team1.mapper.loginMapper">
+  
+ 	<!-- 로그인 -->
+   <select id ="login" resultType ="com.acorn.team1.domain.LoginUserVO">
+   
+	   SELECT A.id, A.name, A.password, A.pw_checked, A.birthday, A.job_id, A.session_key, A.session_limit, null as state,
+	   A.mobile_phone, A.temporarily_number, A.address, A.detail_address, C.name as 'course_name', C.code as 'course_code', C.start_date, C.end_date 
+	   FROM tbl_admin as A Left join tbl_course as C on A.id = C.admin_id
+	   WHERE id =#{userId}  and password =#{password} 
+	   UNION
+	   SELECT  S.id, S.name,S.password, S.pw_checked, S.birthday, S.job_id,S.session_key, S.session_limit,S.state,
+	   S.mobile_phone, S.temporarily_number, S.address, S.detail_address, C.name, C.code, C.start_date, C.end_date
+	   FROM tbl_student as S Left join tbl_course as C on S.course_code = C.code 
+	   WHERE S.id =#{userId} and S.password =#{password} 
+	   ORDER BY state DESC limit 1
+  
+ 	</select>
+ 	
+ 	<!--자동로그인 -->
+ 	<update id ="KeepLogin">
+	 	UPDATE tbl_admin set session_key = #{sessionId}, session_limit=#{next} 
+	 	WHERE id = #{userId}
+	</update>
+	
+	<update id ="KeepLogin1">
+	 	UPDATE tbl_student set session_key = #{sessionId}, session_limit=#{next}
+	 	WHERE id = #{userId}
+	</update>
+   
+   <select id = "checkUserWithSession_key" resultType="com.acorn.team1.domain.LoginUserVO">
+   		SELECT name, pw_checked, job_id, session_key, session_limit  
+   		FROM tbl_admin 
+   		WHERE session_key = #{value} and session_limit > now()
+   		UNION
+   		SELECT name, pw_checked, job_id, session_key, session_limit  
+   		FROM tbl_student 
+   		WHERE session_key = #{value} and session_limit > now()
+   </select>
+   
+    	<!-- 본인인증 -->
+   <select id ="authorization" resultType ="com.acorn.team1.domain.LoginUserVO">
+   
+	   SELECT id, name, password, birthday, job_id, session_key, session_limit 
+	   FROM tbl_admin 
+	   WHERE id =#{userId} and name =#{name} and birthday =#{birthday}
+	   UNION
+	   SELECT  id, name, password, birthday, job_id, session_key, session_limit 
+	   FROM tbl_student 
+	   WHERE id =#{userId} and name =#{name} and birthday =#{birthday} 
+  
+ 	</select>
+ 	
+
+   		<!--임시 비밀번호 변경-->
+    <update id="update_temp_pw" >
+		UPDATE tbl_admin set password = #{password}, pw_checked = false 
+		WHERE id = #{userId}
+	</update> 
+	 <update id="update_temp_pw1" >
+		UPDATE tbl_student set password = #{password}, pw_checked = false 
+		WHERE id = #{userId}
+	</update> 
+	
+	   	<!-- 현재 비밀번호 확인 -->
+   <select id ="checkPassword" resultType ="com.acorn.team1.domain.LoginUserVO">
+    
+	   SELECT id, password FROM tbl_admin 
+	   WHERE id = #{userId} and password =#{password}
+	   UNION
+	   SELECT id, password FROM tbl_student 
+	   WHERE id = #{userId} and password =#{password} 
+  
+ 	</select>
+	
+  		<!--비밀번호 변경-->
+    <update id="update_pw" >
+		UPDATE tbl_admin set password = #{newPassword}, pw_checked = true 
+		WHERE id = #{userId} and password =#{password}
+	</update> 
+	 <update id="update_pw1" >
+		UPDATE tbl_student set password = #{newPassword}, pw_checked = true 
+		WHERE id = #{userId} and password =#{password} 
+	</update> 
+
+  
+ 
+  </mapper> 
+  

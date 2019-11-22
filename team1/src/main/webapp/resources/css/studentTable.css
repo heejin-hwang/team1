@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+
+
+/*=============================================
+=           all            =
+=============================================*/
+
+* {
+    /* border: solid lightcoral 1px; */
+    /* position: relative; */
+}
+
+body {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+div.section {
+    width: 1100px;
+    margin: 0px auto;
+}
+.button {
+	margin: 10px 0px;
+	float: right;
+	
+}
+
+.button > input {
+	
+	/* float: left; */
+	border: none;
+	color: #fff;
+	background-color: #3C6188;
+	font-size: 14px;
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+	border-radius:5px;
+	margin: 0 5px;	
+	cursor: pointer;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	-o-border-radius:5px;
+}
+
+.button > input:focus {
+	color: #3C6188;
+	border: 1px solid #3C6188;
+	background-color: #fff;
+}
+
+
+/*=====  End of all  ======*/
+
+/*=============================================
+=           Student           =
+=============================================*/
+		
+#search {
+	margin: 10px 0px;
+	float: right;
+	vertical-align: middle;
+}
+select {
+    width: 100px;
+    height: 30px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: 5px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    overflow:visible;
+}
+select:focus{
+    background-color: #fff;
+    border-color:#3C6188;
+}
+
+input[type=text], input[type=tel], input[type=email], input[type=password] {				/*�꽌移� 遺�遺�*/
+	width: 220px;
+	height: 30px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid;
+	border-color: #979797;
+	border-radius: 5px;
+	margin: 5px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+input[type=text]:focus, 
+input[type=tel]:focus, 
+input[type=email]:focus {
+	background-color: #fff;
+    border-color:#3C6188;
+}	
+
+#search .buttons {
+	padding: 10px;
+}
+
+.button span > #button {
+	
+	/* float: left; */
+	border: none;
+	color: #fff;
+	background-color: #3C6188;
+	font-size: 14px;
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+	border-radius:5px;
+	margin: 0 5px;	
+	cursor: pointer;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	-o-border-radius:5px;
+}
+
+.button span > input#button:focus {
+	color: #3C6188;
+	border: 1px solid #3C6188;
+	background-color: #fff;
+}
+
+.table #board > th {
+	margin: 0px auto;
+    width: 1100px;
+	padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    display: table-cell;
+}
+
+.table #board > td {
+	width: 150px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+
+.table #board td > a:link,
+.table #board td > a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+/*=====  End of studentTable   ======*/
+
+/*=============================================
+=           deatailStudent           =
+=============================================*/
+
+
+.table #detail th {
+    width: 30%;
+    vertical-align: top;
+}
+
+.table #detail td {
+	width: 70%;
+    vertical-align: top;
+}
+
+
+
+/*=====  End of studentDeatails   ======*/
+
+/*=============================================
+=           addStudent          =
+=============================================*/
+
+
+.table #register th {
+    width: 30%;
+    vertical-align: top;
+}
+
+
+.table #register td {
+	width: 70%;
+	text-align: start;
+}
+
+.table span.required{
+	color:red;
+}
+
+#checkMsg{
+	display : inline;
+	font-size : 12px;
+}
+
+.table #register_button {
+	border: none;
+}
+
+
+input#birthday {
+	text-align: center;
+	width:70px;
+}
+
+select#course_code {
+	width: 600px;
+}
+
+input.address {
+	width: 600px;
+}
+
+#checkbtn {
+	display: inline-block;
+	border: none;
+	color: #fff;
+	background-color: #3C6188;
+	font-size: 14px;
+	display: inline-block;
+	width: 80px;
+	height: 30px;
+	border-radius:5px;
+	margin: 0 5px;	
+	cursor: pointer;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	-o-border-radius:5px;
+}
+
+#register input#student_id {
+	display: inline-block;
+}
+
+
+
+#checkbtn:focus {
+	color: #3C6188;
+	border: 1px solid #3C6188;
+	background-color: #fff;
+}
+/*=====  End of registerForm   ======*/
+

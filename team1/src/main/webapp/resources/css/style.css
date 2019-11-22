@@ -1,0 +1,470 @@
+@import
+	url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap')
+	;
+
+/* ------------------------------------------------------ */
+/*                   every jsp                            */
+/* ------------------------------------------------------ */
+body {
+	font-family: 'Nanum Gothic', sans-serif;
+	margin: 0;
+	font-size: 15px;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+.titlebar {
+	background-image: url("../img/header_img.png");
+	/* background-color: #cdcdcd; */
+	padding: 50px;
+	margin-bottom: 30px;
+	padding: 50px;
+}
+
+div.sub {
+	width: 1000px;
+	margin: 50px auto;
+	display: flex;
+}
+
+ul.sub1 {
+	text-align: right;
+	margin: 0;
+	flex: 30%;
+}
+
+ul.sub1 li {
+	color: #fff;
+}
+
+h1.sub2 {
+	flex: 70%;
+	text-align: left;
+	margin: 0;
+	color: #000;
+}
+
+section {
+	width: 1100px;
+	margin: auto;
+}
+
+ul.breadcrumb {
+	padding: 10px 16px;
+	list-style: none;
+}
+
+ul.breadcrumb li {
+	display: inline;
+	font-size: 16px;
+}
+
+ul.breadcrumb li+li:before {
+	padding: 8px;
+	color: #fff;
+	content: "/\00a0";
+}
+
+ul.breadcrumb li a {
+	color: #fff;
+	text-decoration: none;
+}
+
+button.click_bo {
+	border: none;
+	color: #fff;
+	background-color: #3C6188;
+	font-size: 14px;
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 5px;
+	margin: 0 5px;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+
+button.click_bo:focus {
+	color: #3C6188;
+	border: 1px solid #3C6188;
+	background-color: #fff;
+}
+
+/*==========================================================
+                        header_1
+============================================================*/
+.header_1 {
+	margin: 0;
+	height: 40px;
+}
+
+.user_icon {
+	width: 35px;
+	height: 35px;
+	padding-right: 5px;
+	padding-top: 5px;
+}
+
+.user_dropdown {
+	display: none;
+	position: absolute;
+	border: 1px solid #ccc;
+	width: 350px;
+	right: 0;
+	line-height: 1.5em;
+	padding: 10px;
+	margin-right: 20px;
+	background-color: #fff;
+	z-index: 2;
+}
+
+.user_dropdown:hover, .user_dropdown:focus {
+	display: block;
+}
+
+.dropdown_box {
+	display: flex;
+}
+
+.dropdown_1 {
+	flex: 30%;
+}
+
+.dropdown_1 img {
+	width: 100%;
+}
+
+.dropdown_2 {
+	flex: 70%;
+	font-size: 10pt;
+	padding-left: 15px;
+}
+
+.dropdown_2 p {
+	margin: 0;
+}
+
+.dropdown_2 p:first-child {
+	font-size: 12pt;
+}
+
+.dropdown_2 p:nth-child(2n) {
+	color: #a9a9a9;
+}
+
+.dropdown_3 {
+	border-top: 3px solid #ccc;
+	margin-top: 0.5em;
+	padding-top: 0.5em;
+	text-align: right;
+}
+
+.dropdown_3 button {
+	float: right;
+	width: 80px;
+}
+
+.user_account {
+	float: right;
+}
+
+.user_account:hover, .user_account:focus {
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+}
+
+.user_account:hover .user_dropdown, .user_account:focus .user_dropdown {
+	display: block;
+}
+
+/*==========================================================
+               header_bar(header_2 + header_3)
+============================================================*/
+.header_bar {
+	width: 100%;
+	display: table;
+	height: 80px;
+	margin: 0;
+	padding: 0;
+}
+
+/*==========================================================
+                        header_2
+============================================================*/
+.header_2 {
+	text-align: center;
+	display: table-cell;
+	width: 30%;
+	height: 80px;
+	vertical-align: middle;
+}
+
+.header_2 img {
+	height: 100%;
+}
+
+/*==========================================================
+                        header_3
+============================================================*/
+.header_3 {
+	display: table-cell;
+	width: 70%;
+	vertical-align: middle;
+	text-align: right;
+	height: 80px;
+	padding-left: 2em;
+	padding-right: 2em;
+}
+
+.header_3 #menu {
+	display: none;
+	cursor: pointer;
+}
+
+.header_3 ul li {
+	margin: 0;
+	list-style: none;
+	display: inline-block;
+}
+
+.header_3 ul li a {
+	text-decoration: none;
+	display: block;
+	padding: 2em;
+	position: relative;
+	color: #3C6188;
+	font-weight: bold;
+}
+
+.header_3 ul li a.active:before {
+	content: '';
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background-color: #3C6188;
+	position: absolute;
+	transform: scaleX(1);
+}
+
+.header_3 ul li a.active:after {
+	content: '';
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background-color: #3C6188;
+	position: absolute;
+	transform: scaleX(1);
+}
+
+.header_3 ul li a:before {
+	content: '';
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background-color: #3C6188;
+	transition: all 0.5s;
+	position: absolute;
+	transform: scaleX(0);
+	transform-origin: left;
+}
+
+.header_3 ul li a:after {
+	content: '';
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background-color: #3C6188;
+	transition: all 0.5s;
+	position: absolute;
+	transform: scaleX(0);
+	transform-origin: right;
+}
+
+.header_3 ul li a:hover:before, ul li a:hover:after {
+	transform: scaleX(1);
+}
+
+@media all and (max-width: 767px) {
+	.header_2 {
+		padding: 2em;
+	}
+	.header_3 #menu {
+		display: block;
+		line-height: 80px;
+		width: 100%;
+	}
+	.header_3 ul {
+		display: none;
+		/* background-color: #3C6188; */
+		padding: 1em;
+		text-align: left;
+	}
+	.header_3 ul li {
+		display: block;
+	}
+	.header_3 ul li a {
+		display: block;
+		padding: .75em 1.5em;
+	}
+}
+
+/* PULSATING CARET */
+.typer:after {
+  content:"";
+  display: inline-block;
+  vertical-align: middle;
+  width:1px;
+  height:1em;
+  background: #000;
+  animation: caretPulsate 1s linear infinite; 
+  -webkit-animation: caretPulsate 1s linear infinite; 
+}
+@keyframes caretPulsate {
+  0%   {opacity:1;}
+  50%  {opacity:1;}
+  60%  {opacity:0;}
+  100% {opacity:0;}
+}
+@-webkit-keyframes caretPulsate {
+  0%   {opacity:1;}
+  50%  {opacity:1;}
+  60%  {opacity:0;}
+  100% {opacity:0;}
+}
+
+/* ------------------------------------------------------ */
+/*             chat.jsp - chat button & top button        */
+/* ------------------------------------------------------ */
+div.box {
+	display: flex;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	z-index: 100;
+}
+
+div.box img {
+	width: 50px;
+	padding: 5px;
+}
+
+/* ------------------------------------------------------ */
+/*                   footer.jsp                           */
+/* ------------------------------------------------------ */
+footer {
+	display: flex;
+	padding: 10px 0;
+	color: #757D75;
+	background-color: #F2F1EF;
+	margin-top: 30px;
+	width: 100%;
+	bottom: 0;
+	right: 0;
+	left: 0;
+}
+
+.footer_left {
+	flex: 20%;
+	text-align: center;
+	padding: 0;
+	margin-top: 10px;
+}
+
+.footer_right {
+	flex: 80%;
+	padding-right: 50px;
+}
+
+.footer_right p {
+	font-size: 12px;
+}
+
+.footer_bottom {
+	width: 100%;
+	flex: 100%;
+	text-align: center;
+}
+
+/* ------------------------------------------------------ */
+/*                     error.jsp                          */
+/* ------------------------------------------------------ */
+div.errorPage {
+	text-align: center;
+	background: linear-gradient(to bottom, #ccc, #3C6188);
+	padding: 3px;
+	margin: 100px auto;
+	width: 850px;
+}
+
+div.inner {
+	background: #fff;
+	padding: 80px 200px;
+	line-height: 1em;
+	text-align: justify;
+}
+
+div.inner img {
+	width: 200px;
+	text-align: center;
+}
+
+div.errorBtn {
+	display: flex;
+}
+
+div.inner button {
+	width: 100%;
+	flex: 50%;
+	padding-left: 5px;
+	padding-right: 5px;
+	height: 50px;
+}
+
+/* ------------------------------------------------------ */
+/*                       table                            */
+/* ------------------------------------------------------ */
+table {
+	border-collapse: collapse;
+	margin: 10px auto;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	line-height: 3;
+	text-align: center;
+	display: table;
+}
+
+table tr {
+	border-bottom: 1px solid #ccc;
+}
+
+table>th {
+	margin: 0px auto;
+	width: 1100px;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	display: table-cell;
+}
+
+table>td {
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+}
+
+.table_list:hover {
+	background-color: #bbd8ff;
+}

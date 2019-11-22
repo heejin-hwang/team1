@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+/*============ 반 목록 select박스 ==================*/
+.select_C_N{
+	margin-top:10px;
+	float:left;
+}	
+.select_C_N select {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow:hidden;	
+}
+
+/*============= 검색 목록 ==========================*/
+.search{						/*검색목록 전체 공간*/
+	text-align: center;
+	margin: 15px 0;	
+}
+.search2 {						/* 검색란 */
+	float:right;
+}
+.search_select{					/* 글 종류 select box*/
+	width: 90px;
+	height: 30px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+.search_select2{					/* 글 종류 select box*/
+	width: 170px;
+	height: 30px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+.search_keyword {				 	/*서치 부분*/
+	width: 220px;
+	height: 30px;
+	box-sizing: border-box;
+	border: 1px solid;
+	border-color: #979797;
+	border-radius: 5px;
+	margin: 5px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+
+.search::after{					/*float clear 해주기*/
+	display: block;
+	content:"";
+	clear:both;
+}
+
+/*----------------게시판 테이블-----------------------------*/
+.table_div{			/* 테이블을 감싸는 부분*/	
+	width:100%;
+	height: 700px;
+}
+.list_subject{
+	text-align: left;
+}
+.list_subject a {
+	padding-left : 10px;
+}
+/*------------------테이블 제목 설정-------------------------------*/
+
+/*-----------------테이블 게시글 설정---------*/
+
+.notice_subject{
+	padding-left: 5px;
+	text-align: left;
+}
+.notice_subject a{
+	display: inline-block;
+	width: 100%;
+	height:100%;
+}
+.table_list2 {
+	font-weight: bold;
+}
+
+
+
+  

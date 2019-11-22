@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.acorn.mapper.AssignmentMapper">
+
+	<insert id="create">
+	insert into tbl_assignment
+		(name, description, end_date, course_code, admin_id)
+	values 
+		(#{name}, #{description}, #{end_date}, #{course_code}, #{admin_id});
+	</insert>
+	
+	<select id="read" resultType="com.acorn.team1.domain.AssignmentVO">
+	select 
+		id, name, description, DATE_FORMAT(start_date, "%Y-%m-%d") as start_date, DATE_FORMAT(end_date, "%Y-%m-%d") as end_date, course_code, admin_id
+	from tbl_assignment
+	where id = #{id}
+	</select>
+	
+	<update id="update">
+	update tbl_assignment set name = #{name}, description = #{description} where id = #{id}
+	</update>
+	
+	<delete id="delete">
+	delete from tbl_assignment where id = #{id}
+	</delete>
+	
+	<select id="listAll" resultType="com.acorn.team1.domain.AssignmentVO">
+	<![CDATA[
+	select
+		id, name, description, DATE_FORMAT(start_date, "%Y-%m-%d") as start_date, DATE_FORMAT(end_date, "%Y-%m-%d") as end_date, course_code, admin_id
+	from
+		tbl_assignment
+	where id > 0 and admin_id = #{adminId} and course_code = #{currCourseCode}
+	order by id
+	]]>
+	</select>
+	
+	<select id="listSubmit" resultType="com.acorn.team1.domain.GroupSubmitVO">
+	<![CDATA[
+	select
+		g.id as "g_id", g.name as "g_name", g.course_code as "g_coursecode", g.admin_id as "g_adminId",
+		a.id as "a_id", a.name as "a_name", a.description as "a_description", DATE_FORMAT(a.start_date, "%Y-%m-%d") as "a_startdate", DATE_FORMAT(a.end_date, "%Y-%m-%d") as "a_end_date",
+		s.id as "s_id", s.upload_date as "s_uploaddate", s.course_code as "s_coursecode", s.groups_id as "s_groupsId", s.assignment_id as "s_assignmentId",
+		f.id as "f_id", f.name_key as "f_namekey", f.name as "f_name", f.path as "f_path", f.size as "f_size", f.group_id as "f_groupId", f.submit_id as "f_submitId"
+	from
+		tbl_assignment a
+	inner join tbl_groups g on a.course_code = g.course_code
+	inner join tbl_submit s on s.groups_id = g.id
+	inner join tbl_fileupload f on f.group_id = g.id
+	where a.id = #{id} and s.assignment_id = #{id} and s.id = f.submit_id
+	order by g.id
+	]]>
+	</select>
+	
+	<select id="listGroup" parameterType="map" resultType="com.acorn.team1.domain.GroupVO">
+	select *
+	from
+		tbl_groups
+	where admin_id = #{adminId} and course_code = #{courseCode} 
+	</select>
+	
+	<select id="getCourseName" resultType="String">
+	select name from tbl_course where admin_id = #{adminId}
+	</select>
+	
+	<select id="getCurrentCourseId" resultType="Integer">
+	select code from tbl_course where admin_id = #{adminId} and state = "Running" 
+	</select>
+
+</mapper>

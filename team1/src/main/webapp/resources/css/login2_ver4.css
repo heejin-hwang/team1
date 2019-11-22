@@ -1,0 +1,239 @@
+@charset "utf-8";
+* {
+   box-sizing: border-box;
+}
+
+body {
+   font-family: "Elephant Outline", sans-serif;
+}
+
+body #wrap {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   overflow: scroll;
+   background-color: white;
+   /* background-image: linear-gradient(to bottom right, white, #F1F1F1, white, #8f9294); */
+}
+
+body .container {
+   position: relative;
+   width: 1403px;
+   height: 906px;
+   margin: 50px auto 130px;
+}
+
+body .container .container_back {
+   background-color: white;
+   position: absolute;
+   width: 1403px;
+   height: 906px;
+   margin: 50px auto 130px;
+}
+
+body .container .container_front {
+   background-image: url('/resources/img/background1.png');
+   background-position: center center;
+   background-size: contain;
+   background-repeat: no-repeat;
+    position: absolute;
+    overflow: hidden;
+    width: 1403px;
+    height: 906px;
+    margin: 30px auto 130px;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px; */
+    /* border-radius: 40px; */
+}
+
+body .container .container_front .text {
+   float: left;
+   display: block;
+   margin-top: 399.41px;
+   width: 750px;
+   text-align: center;
+   cursor: pointer;
+   user-select: none; /* 클릭 & 드래그불가 */
+}
+
+body .container .container_front .form {
+   width: 517px;
+   height: 280;
+   margin-top: 275px;
+   margin-left: 797px;
+   background-color: white;
+   border: none;
+}
+
+
+
+body .container .container_front .text h1 {
+   /* font-family: 'Spoqa Han Sans', sans-serif; */
+   font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+   font-size: 80px;
+   font-weight: 700;
+   text-align: center;
+   /* letter-spacing: 10px; */
+   text-transform: capitalize; /* 단어의 첫번째 글자를 대문자로 */
+   color: #ffffff;
+}
+
+body .container .container_front .tabs .tab a {
+   font-size: 12px;
+   text-decoration: none;
+   color: #ffffff;
+   font-weight: 700;
+}
+
+body .container .container_front .form .content form {
+   position: relative;
+    height: 310px;
+}
+
+body .container .container_front .form .form_header {
+   padding-left: 25px;
+}
+
+body .container .container_front .form .content label {
+   display: block;
+    padding-bottom: 10px; 
+    font-size : 15px;
+    padding-left: 33px;
+   color: #3b6188;
+   user-select: none;
+   font-size: 12px;
+}
+
+body .container .container_front .form .content input.inpt {
+   font-size: 14px;
+   display: block;
+   width: 90%;
+   height: 42px;
+    margin-bottom: 12px;
+    margin-left: auto;
+    margin-right: auto;
+   padding: 16px 13px;
+   color: #999999;
+   border: 2.5px solid #518199;
+   background: transparent; /* 투명하게(배경색 보이도록) */
+   border-radius: 10px;
+}
+
+body .container .container_front .form .content input.inpt::-webkit-input-placeholder {
+   font-size: 14px;
+   color: #999999;
+   font-family: 'Lato', sans-serif;
+}
+
+body .container .container_front .form .content input.inpt:focus::-webkit-input-placeholder { color: transparent; } 
+body .container .container_front .form .content input.inpt:focus::-moz-placeholder { color: transparent; } 
+body .container .container_front .form .content input.inpt:focus:-ms-input-placeholder { color: transparent; } 
+body .container .container_front .form .content input.inpt:focus::-ms-input-placeholder { color: transparent; }
+
+body .container .container_front .form .content .error {
+   font-size: 12px;
+    line-height: 5px;
+    margin: -2px 0 12px;
+   color: #ff1616;
+   text-indent: 30px;
+   padding-bottom: 8px;
+}
+
+body .container .container_front .form .content input.submit {
+   font-size: 15px;
+   font-weight: 900;
+   line-height: 42px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   width: 90%;
+   height: 42px;
+   cursor: pointer;
+   letter-spacing: 2px;
+   background-color: #ffffff;
+   color: #434547;
+   border: 1px solid #658697;
+   border-radius: 10px;
+}
+
+body .container .container_front .form .content input.submit:hover {
+   background-color: #263238;
+   color: #ffffff;
+}
+
+body .container .container_front .form .content a {
+   float: right;
+   text-decoration: none;
+   padding-left: 33px;
+    font-size : 14px;
+   color: #999999;
+   margin-right: 25px;
+}
+
+body .container .container_front .form .content .checkbox {
+   text-align: left;
+   margin-top: 4px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   width: 0;
+   height: 0;
+   margin: 17px -1px;
+   padding: 0;
+   border: 0;
+   display: none; /* firefox, IE 화면 중복발생 예방 */
+}
+
+body .container .container_front .form .content .checkbox+label {
+   vertical-align: middle;
+   display: inline-block;
+   width: 50%;
+}
+
+body .container .container_front .form .content .checkbox+label:before {
+   content: "\A"; /* 유지 */
+   color: #999999;
+   font-family: Verdana;
+   font-weight: bold;
+   font-size: 8px;
+   line-height: 10px;
+   text-align: center;
+   display: inline-block;
+   vertical-align: middle;
+   position: relative;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   border-radius: 2px;
+   background: transparent;
+   border: 1px solid #d9d9d9;
+   width: 11px;
+   height: 11px;
+   margin: -2px 8px 0 0;
+}
+
+body .container .container_front .form .content .checkbox:checked+label:before {
+   content: "✓";
+}
+
+body .container .container_front .form .content .submit-wrap {
+   position: relative;
+   bottom: 0;
+   width: 100%;
+}
+
+body .container .container_front .form .content .option {
+   padding-top: 12px;
+}
+
+body .container .container_front .form .content .submit-wrap a {
+   font-size: 14px;
+   display: block;
+   margin-top: 20px;
+   text-align: center;
+   text-decoration: none;
+   color: #999999;
+}
+
+body .container .container_front .form .content .submit-wrap a:hover {
+   text-decoration: underline;
+}

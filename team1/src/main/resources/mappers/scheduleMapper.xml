@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.acorn.mapper.ScheduleMapper">
+	
+	<select id="listAll" resultType="com.acorn.team1.domain.ScheduleVO">
+		<![CDATA[
+			SELECT 
+				id, subject, categorize, start_date, end_date, course_code, admin_id
+			FROM
+				tbl_noticeboard
+			WHERE
+				YEAR(start_date) LIKE #{year} OR YEAR(end_date) LIKE #{year}
+			ORDER BY start_date
+		]]>
+	</select>
+	
+	<select id="listCourse" parameterType="map" resultType="com.acorn.team1.domain.ScheduleVO">
+		<![CDATA[
+			SELECT 
+				id, subject, categorize, start_date, end_date, course_code, admin_id
+			FROM
+				tbl_noticeboard
+			WHERE
+				(YEAR(start_date) LIKE #{year} OR YEAR(end_date) LIKE #{year}) AND course_code = #{coursecode}
+			ORDER BY start_date
+		]]>
+	</select>
+
+</mapper>

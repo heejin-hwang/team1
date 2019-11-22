@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acorn.mapper.StudentMapper">
+
+
+	<!-- Read course list -->
+	
+	<select id="readCourseList"
+			resultType="com.acorn.team1.domain.CourseDTO">
+			select code, name
+			from tbl_course
+	</select>
+	
+	
+	<!-- Read student list, detail data, update -->
+	
+	<select id = "readStudentList" resultType="com.acorn.team1.domain.StudentListDTO">
+	select S.id, S.name, S.course_code, S.groups_id, S.state, C.name as 'course_name' 
+	from tbl_student S join tbl_course C 
+	where S.course_code = C.code
+	</select> 
+	
+	
+	
+	<select id = "readStudentData" parameterType= "com.acorn.team1.domain.StudentFindDTO" resultType="com.acorn.team1.domain.DetailStudentDTO">
+	select S.id, S.name, S.birthday, S.mobile_phone, S.temporarily_number, S.address, S.detail_address, S.course_code, S.groups_id, S.state, C.name as 'course_name' 
+	from tbl_student S join tbl_course C 
+	where S.id = #{id} and S.course_code = C.code
+	</select> 
+	
+	<!-- check id exist -->
+
+	<select id="idExist" parameterType = "com.acorn.team1.domain.StudentFindDTO" resultType= "int">
+		select
+			count(*)
+		from tbl_student
+		where id = #{id}
+	</select>
+	
+	
+	<!-- Add student data -->
+	
+	<insert id="insertStudentData" parameterType="com.acorn.team1.domain.StudentVO">
+		insert into tbl_student(id,name,birthday,mobile_phone,temporarily_number,password,address,detail_address,course_code, state) 
+		values(	
+		#{id},	
+		#{name}, 
+		#{birthday}, 
+		#{mobile_phone}, 
+		#{temporarily_number}, 
+		#{password}, 
+		#{address}, 
+		#{detail_address}, 
+		#{course_code}, 
+		#{state}
+			)	
+	</insert>
+	
+	<!-- select의 아이디는 프로젝트 이름, resultType은 객체 클래스 경로  deferred expression
+		parameter를 기본타입 객체로 주느냐 자바빈객체로 주느냐 주는 형태에 따라서 myBatis로 꺼내는 형태가 달라짐
+		DTO는 자바빈객체, 가져오면 getter메소드로 집어넣게됨.
+	-->
+	
+	<update id = "updateStudentDataByAdmin" parameterType="com.acorn.team1.domain.UpdateStudentByAdminDTO">
+	update tbl_student 
+	set id = #{id}, 
+	name = #{name}, 
+	birthday = #{birthday}, 
+	mobile_phone = #{mobile_phone}, 
+	temporarily_number = #{temporarily_number}, 
+	address = #{address}, 
+	detail_address = #{detail_address},
+	course_code = #{course_code},
+	state = #{state}
+	where id= #{target_id}
+	
+	</update>
+	
+	<update id = "updateStudentDataByStudent" parameterType="com.acorn.team1.domain.UpdateStudentByStudentDTO">
+	update tbl_student 
+	set 
+	id = #{id},
+	mobile_phone = #{mobile_phone}, 
+	temporarily_number = #{temporarily_number}, 
+	password = #{password}, 
+	address = #{address}, 
+	detail_address = #{detail_address}
+	where id= #{target_id}
+	
+	</update>
+	
+	
+	<!-- Paging -->
+	
+	<!-- Data for page view -->
+	<!-- Need attendence data!!! -->
+	<select id="listCriteria" resultType="com.acorn.team1.domain.StudentListDTO">
+		<![CDATA[
+		select
+		S.id, S.name, S.birthday, S.course_code, S.state, C.name as 'course_name'
+		from
+		tbl_student S join tbl_course C
+		where S.course_code = C.code 
+		limit #{pageStart}, #{perPageNum}
+		]]> 
+	</select>
+
+	<select id="searchedListCriteriaCourse" resultType="com.acorn.team1.domain.StudentListDTO">
+		<![CDATA[
+		select
+		S.id, S.name, S.birthday, S.state, C.name as 'course_name'
+		from
+		tbl_student S join tbl_course C
+		where S.course_code = C.code and C.name LIKE '%${value}%'
+		limit #{pageStart}, #{perPageNum}
+		]]> 
+	</select>
+	
+	<select id="searchedListCriteriaStudent" resultType="com.acorn.team1.domain.StudentListDTO">
+		<![CDATA[
+		select
+		S.id, S.name, S.birthday, S.state, C.name as 'course_name'
+		from
+		tbl_student S join tbl_course C
+		where S.course_code = C.code and S.${type} LIKE '%${value}%'
+		limit #{pageStart}, #{perPageNum}
+		]]> 
+	</select>
+
+	<select id="countPaging" resultType="int">
+	<![CDATA[
+		SELECT
+		count(id)
+		FROM
+		tbl_student
+		
+		]]>
+	</select>
+	
+	<select id="searchedCountPagingStudent" resultType="int">
+	<![CDATA[
+		select
+		count(id)
+		from
+		tbl_student S join tbl_course C
+		where S.course_code = C.code and S.${type} LIKE '%${value}%'
+		]]>
+	</select>
+	
+	<select id="searchedCountPagingCourse" resultType="int">
+	<![CDATA[
+		select
+		count(id)
+		from
+		tbl_student S join tbl_course C
+		where S.course_code = C.code and C.name LIKE '%${value}%'
+		]]>
+	</select>
+	
+	
+
+</mapper>
+

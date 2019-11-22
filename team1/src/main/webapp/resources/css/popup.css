@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+.popupDiv {
+	padding: 20px;
+}
+
+.registerTitle {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.add_table {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 10pt;
+}
+
+.add_table td {
+	vertical-alignment: middle;
+}
+
+.add_table tr {
+	height: 60px;
+	border: none;
+}
+
+.add_table td:nth-child(2n + 1) {
+	width: 30%;
+	font-weight: bold;
+}
+
+.add_table td:nth-child(2n) {
+	width: 70%;
+	text-align: left;
+}
+
+.add_table input, .add_table textarea {
+	border: 0;
+	padding: 5px 0 7px;
+	border: 1px solid transparent;
+	border-bottom-color: #ccc;
+	transition: 0.4s;
+	width: 100%;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+}
+
+.add_table input:focus, .add_table textarea:focus {
+	outline: none;
+	padding: 5px 14px 7px;
+	transition: 0.4s;
+	border: 2px solid #3C6188;
+}
+
+.checkBox {
+	vertical-alignment: left;
+}
+
+.add_table textarea {
+	width: 100%;
+	height: 100px;
+}

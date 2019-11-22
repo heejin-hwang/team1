@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acorn.team1.mapper.HomeBoardMapper">
+
+<!-- 검색 관련 sql -->
+	<sql id="search">
+	
+		<where>
+				<if test="scourse_code != null and scourse_code !=''.toString() ">
+					n.course_code=#{scourse_code}
+				</if>
+				
+					and n.id >0
+		</where>
+		
+		
+	</sql>
+<!--  게시글 목록 조회 기능-->
+	<select id="HomeNotice" resultType="com.acorn.team1.domain.HomeBoardVO">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				tbl_noticeboard AS n
+			JOIN
+				tbl_admin AS a
+			ON
+				n.admin_id = a.id
+			
+			]]>
+		
+			<include refid="search"></include>
+			
+		<![CDATA[
+			ORDER BY
+				n.id desc
+			LIMIT
+				#{pageStart}, #{perPageNum}
+		]]>
+	</select>
+	
+	<!-- 게시글 조회수 증가처리 -->
+	<update id="increaseHits">
+		UPDATE tbl_noticeboard SET hits = hits + 1
+		WHERE id = #{id}
+	</update>
+	
+
+	
+	
+		<select id="HomeScheduleAll" resultType="com.acorn.team1.domain.ScheduleVO">
+		<![CDATA[
+			SELECT 
+				id, subject, categorize, start_date, end_date, course_code, admin_id
+			FROM
+				tbl_noticeboard
+			WHERE
+			    now() between start_date and end_date 
+				
+			ORDER BY start_date
+		]]>
+	</select>
+	
+	<select id="HomeScheduleCourse" resultType="com.acorn.team1.domain.ScheduleVO">
+		<![CDATA[
+			SELECT 
+				id, subject, categorize, start_date, end_date, course_code, admin_id
+			FROM
+				tbl_noticeboard
+			WHERE
+			    now() between start_date and end_date and course_code = #{course_code}
+			ORDER BY start_date
+		]]>
+	</select>
+	
+	
+	
+	
+		<select id="TomorrowHomeScheduleAll" resultType="com.acorn.team1.domain.ScheduleVO">
+		<![CDATA[
+			SELECT 
+				id, subject, categorize, start_date, end_date, course_code, admin_id
+			FROM
+				tbl_noticeboard
+			WHERE
+			   unix_timestamp(now())+(60*60*24) between unix_timestamp(start_date) and unix_timestamp(end_date)
+				
+			ORDER BY start_date
+		]]>
+	</select>
+	
+	<select id="TomorrowHomeScheduleCourse" resultType="com.acorn.team1.domain.ScheduleVO">
+		<![CDATA[
+			SELECT 
+				id, subject, categorize, start_date, end_date, course_code, admin_id
+			FROM
+				tbl_noticeboard
+			WHERE
+			    unix_timestamp(now())+(60*60*24) between unix_timestamp(start_date) and unix_timestamp(end_date)
+				and course_code = #{course_code};
+			ORDER BY start_date
+		]]>
+	</select>
+
+</mapper>

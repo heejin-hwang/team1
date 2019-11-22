@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.popupDiv {
+	padding: 20px;
+}
+​
+#popupResult {
+	text-align: center;
+}
+​
+#popupResult .fa-check-circle {
+	font-size: 25px;
+	color: #3C6188;
+}

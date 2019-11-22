@@ -1,0 +1,199 @@
+pagination@charset "utf-8";
+
+
+/*----------------------secetion-----------------------------*/
+.add_outList{				/*��ư�� ���δ� �κ�1*/
+	margin: 15px;
+}
+.add_button{				/*��ư�� ���δ� �κ�2*/
+	float:right;
+}
+#updateBtn{
+	width:80px;
+}
+
+.add_outList::after{			/*��ư ���� float clear*/
+	display:block;
+	content:"";
+	clear:both;
+}
+
+.write_form{
+	margin-top: 10px;
+}
+/*----------------------input,select ����----------------------------------*/
+input[type=text], [type=date], [type=file], select {
+	height:30px;
+	padding: 5px 20px;
+	box-sizing: border-box;
+	border:none;
+	background-color: #ddf4ff;
+	border-radius: 5px;
+	-webkit-appearance:none;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+.boardtable td::after{
+	display: table-cell;
+	content:"";
+	clear:both;	
+}
+
+/*---------------------�Խñ�-----------------------------*/
+.add_list{			 /*�������� ���δ� ����*/
+	margin-top: 15px;
+	width:100%;					
+	height:100%;
+}
+.list_num{
+	display: inline-block;
+	margin-right: 10px;
+	text-align: left;
+}
+.boardtable th{
+	width: 100px;
+}
+.list_date{
+	display: inline-block;
+	margin-right: 10px;
+	text-align: left;
+	float: right;
+}
+.write_form::after{
+	display: block;
+	content:"";
+	clear:both;	
+}
+.t_red {
+	text-align: right;
+	color: red;
+}
+/*----- �� �Է� �κ�----------*/
+.input_area{					/*�� �Է� �κ�*/
+	min-width: 970px;
+	float:left;
+}
+.input_date{					/*��¥ �Էºκ�*/
+	min-width: 400px;
+	float:left;
+}
+.boardtable td{
+	text-align: left;
+}
+.p_area{
+	padding: 0 20px;
+}
+/*---------text_area----------------*/	
+
+.board_label {				/*text_area ����*/
+	display: inline-block;
+	margin: 10px 16px;
+	font-size: 18px;
+	font-weight: bold;
+}
+.text_area {
+	width: 1100px;
+	height: 100px;
+	border-radius:10px;
+	padding: 10px 20px;
+	border: 1px ridge #ccc;
+	resize: none;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	-ms-border-radius:10px;
+	-o-border-radius:10px;
+}
+
+/*==========÷�� ����=============*/
+#filebox{
+	width: 1060px;
+	height:330px;
+	border-radius:10px;
+	padding: 10px 20px;
+	border: 1px ridge #ccc;
+	margin-top: 10px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	-ms-border-radius:10px;
+	-o-border-radius:10px;
+	overflow: auto;
+}
+/*==================== file box table =============================*/
+.file_table{
+	 border-collapse: collapse;
+	 margin: 10px auto;
+	 width: 100%;
+	 line-height: 3;
+	 text-align:center;
+	display: table;
+}
+.file_table tr {
+	border-bottom: 1px solid #ccc;
+}
+.filebox_td{
+	text-align:left;
+}
+
+/*==================== =============================*/
+/*file icon*/
+.file_icon {
+	width: 70px;
+	height:70px;
+}
+
+/*file tag*/
+#filebox_img{
+       display: none;
+   }
+   
+/*file tag label css*/
+.filebox_label{
+	border: none;
+	color: #fff;
+	background-color: #3C6188;
+	font-size: 14px;
+	text-align: center;
+	display: inline-block;
+	width: 75px;
+	height: 30px;
+	line-height: 30px;
+	border-radius:5px;
+	margin: 0 5px;	
+	cursor: pointer;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	-o-border-radius:5px;
+}
+
+.fileCancel{
+	border: none;
+	color: #fff;
+	background-color: #3C6188;
+	font-size: 17px;
+	display: inline-block;
+	border-radius:5px;
+	padding: 5px;
+	cursor: pointer;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	-o-border-radius:5px;
+}
+
+.img_button{
+	border: none;
+	color: #fff;
+	background-color: #3C6188;
+	font-size: 17px;
+	display: inline-block;
+	padding: 5px;
+	border-radius:5px;
+	cursor: pointer;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	-o-border-radius:5px;
+}

@@ -1,0 +1,441 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:700&display=swap');
+/* body {
+	font-family: 'Noto Sans KR', sans-serif;
+} */
+
+* {
+    /* border: 1px solid seagreen; */
+    margin: 0;
+    padding: 0;
+}
+
+
+/*==============================
+=            common            =
+===============================*/
+
+.chatTitle {
+    margin-bottom: 5px;
+    background-color: #3C6188;
+    color: white;
+    height: 30px;
+    padding-top: 8px;
+    
+     border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    
+}
+
+.chatTitle .icon1{
+    vertical-align: middle;
+    padding: 0px 10px;
+    display: inline-block;
+}
+.chatTitle .icon2{
+    vertical-align: middle;
+    padding: 1px 10px;
+    display: inline-block;
+    float: right;
+}
+
+.chatTitle .title {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.chatBox {
+    /* border: 1px solid seagreen; */
+    /* position: absolute; */
+    /* height: 340px; */
+
+    margin: 5px;
+    padding: 5px;
+    overflow: auto;
+}
+
+
+.chatBox::-webkit-scrollbar{
+    width: 0px;
+}
+
+.chatInput {
+    padding: 2px;
+    /* border: 1px solid seagreen; */
+    height: 30px;
+    /* padding: 3px; */
+    position: relative;
+
+}
+
+.text {
+    border: 1px solid rgb(196, 205, 214);
+    height: 28px;
+    
+    float: left;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+}
+
+.send {
+    background-color: #3C6188;
+    color: white;
+    width: 52px;
+    height: 30px;
+    font-size: 12px;
+    font-weight: bolder;
+    float: right;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    border: 0;
+    outline: 0;
+}
+
+
+
+.message.sol {
+    text-align: left;
+}
+
+.message.sag {
+    text-align: right;
+}
+
+/* 硫붿꽭吏� 諛뺤뒪 紐⑥뼇 */
+.message .messageText {
+    margin: 15px auto;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+    position: relative;
+    left: 0px;
+    
+    vertical-align: text-top;
+    display: inline-block;
+    line-height: 20px;
+    max-width: 350px;
+}
+
+.messageText {
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+/* 硫붿꽭吏� 諛뺤뒪 �깋�긽*/
+.message.sag > .messageText {
+    background: #3C6188;
+}
+
+.message.sol > .messageText {
+    background: rgb(218, 106, 106);
+}
+
+/* 留먰뭾�꽑 瑗щ━ */
+.message.sol .messageText:before {
+    border-width: 0 10px 10px 0;
+    left: -10px;
+    top: 0;
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+   
+    left: 0;
+	top: 50%;
+	border: 6px solid transparent;
+	border-right-color:  rgb(218, 106, 106);
+	border-left: 0px;
+	margin-top: -6px;
+	margin-left: -5px;
+}
+
+.message.sag .messageText:before {
+    border-width: 10px 0 0 10px;
+    top: 30px;
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    
+	right: 0;
+	top: 50%;
+	border: 6px solid transparent;
+	border-left-color: #3C6188;
+	border-right: 0px;
+	margin-top: -6px;
+	margin-right: -5px;
+}
+
+
+/*=====  End of common  ======*/
+
+
+
+/*===============================
+=            Student            =
+================================*/
+.chatWrapStudent {
+	background-color: white;
+    width: 300px;
+    height: 430px;
+    padding: 5px;
+    position:fixed;
+    bottom:80px;
+    right:20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 0px 0px 2px 0px grey;
+    display: inline-block;
+    
+}
+
+.chatWrapStudent > .chatBox {
+    height: 340px;
+}
+.chatWrapStudent .text {
+    width: 230px;
+}
+/* �떆媛� �몴�떆 */
+.message .messageText:after {
+    content: attr(data-time);
+    color: rgba(44, 29, 29, 0.5);
+    position: absolute;
+    line-height: 20px;
+    display: block;
+    bottom: 2px;
+    z-index: 1;
+}
+/* �떆媛꾪몴�떆 �쐞移� */
+.message.sol .messageText:after {
+    margin-left: 5px;
+    left: 100%;
+}
+
+.message.sag .messageText:after {
+    margin-right: 5px;
+    right: 100%;
+}
+.chatInput {
+	text-align: center;
+}
+.request {
+	color : #aaaaaa;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0 auto;
+	font-size: 16px;
+	border: none;
+}
+.requestMsg {
+	color : #aaaaaa;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 12px;
+}
+
+
+/*=====  End of student  ======*/
+
+
+
+
+/*===========================
+=            Admin          =
+============================*/
+
+
+/* �븞 二쇰㈃ 諛섏쓳�삎泥섎읆 以꾩뼱�뱾湲� �븿.. */
+.section{
+   
+    width: 1100px;
+    margin: 0px auto;
+    height: 800px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 0px 0px 2px 0px grey;
+    padding: 5px;
+
+}
+
+.chatWrapAdmin > .chatBox {
+    height: 700px;
+    color: gray;
+    font-size: 20px;
+    text-align: center;
+    
+}
+.frame {
+    height: 100%;      /* equals max image height */
+    width: 100%;
+    /* border: 1px solid red; */
+    white-space: nowrap;
+    
+    text-align: center; margin: 1em 0;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+
+
+.chatWrapAdmin .text {
+    width: 640px;
+}
+
+.chatWrapAdmin .send {
+	margin: 0px 0px 0px 4px;
+}
+
+.chattingList {
+
+    /* border: 1px solid grey; */
+    width: 30%;
+    height: 800px;
+    float: left;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+
+
+.search_text {
+    line-height : normal;
+    outline-style: none;
+    color: white;
+    background-color: #3C6188;
+    border: none;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-bottom: solid white 2px;
+    width: 230px;
+}
+
+.search_text::placeholder {
+    color: white;
+}
+
+.chatListBox {
+    /* border: 1px solid grey; */
+    padding: 3px;
+    overflow: auto;
+    height: 740px;
+}
+
+.chatListBox::-webkit-scrollbar{
+    width: 0px;
+}
+
+.chat {
+    /* border: 1px solid pink; */
+    display: inline-block;
+    font-size: 15px;
+}
+.chatLine1 .chat:after {
+    margin-left: 5px;
+    left: 100%;
+}
+.chatLine2 {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.856);
+    font-weight: lighter;
+}
+.chatSub:hover, .chatSub:focus, .chatSub:active, .chatSub:link{
+    text-decoration: none;
+    color:inherit;
+
+}
+.chatSub {
+    border-bottom: 1px solid #c7c3c3;
+    margin: 3px;
+    padding: 6px;
+    cursor:pointer;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    /* box-shadow: 0px 0px 2px 0px #3C6188; */
+
+    position: relative;
+    z-index: 1;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s; 
+}
+
+.chatSub:after {
+    content: "";
+    width: 0%;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    left: 0;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    /* box-shadow: 0px 0px 2px 0px #3C6188; */
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    background: rgb(189, 193, 199);
+}
+.chatSub:hover {
+    color: white;
+}
+.chatSub:hover:after {
+    width: 100%;
+    z-index: -1;
+}
+
+.chatWrapAdmin {
+    width: 70%;
+    float: right;
+    box-sizing: border-box;
+    padding: 5px;
+
+}
+/*=====  End of Admin  ======*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

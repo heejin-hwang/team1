@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+
+body {
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 0;
+    font-size: 15px;
+}
+
+* {
+   box-sizing: border-box;
+}
+
+/* ------------------------------------------------------ */
+/*                   header.jsp                           */
+/* ------------------------------------------------------ */
+
+.header .logo > a > img  {
+   width: 105px;
+    height: 42px;
+}
+
+header #logo {
+   height: 100px;
+}
+
+.header_1 {
+    margin: 0;
+    text-align: left!important;
+}
+
+.header_2 {
+    background-color: #3C6188;
+    text-align: center;
+    margin: 0 auto;
+    height: 60px;   
+}
+
+.header_2 ul {
+    list-style: none;
+    position: relative;
+    height: 60px;
+    line-height: 60px;
+    pointer-events: none;
+}
+
+.header_2 .li1 {
+   position: relative;
+    display: inline-block;
+    width: 250px;
+    height: 60px;
+   
+    font-size: 20px;
+    text-align: center;
+}
+
+.header_2 .li2 {
+    display: inline-block;
+    width: 250px;
+    height: 60px;
+    font-size: 20px;
+}
+
+.header_2 li:hover {
+    /* background-color: #fff; */
+}
+
+.header_2 li:hover a {
+    /* color: #3C6188; */
+}
+
+.header_2 li.active {
+   background-color: #fff;
+}
+
+.header_2 li.active a {
+   color: #3C6188;
+}
+
+.header_2 a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* ------------------------------------------------------ */
+/*                   container.jsp                           */
+/* ------------------------------------------------------ */
+
+#container {
+   position: relative;
+   margin: 0 auto;
+   padding-bottom: 72px;
+   height: auto;
+   width: 900px;
+}
+
+.content {
+   margin: 0 auto;
+   position: relative;
+   background-color: white;
+   width: 750px;
+   padding-top: 20px;
+   padding-bottom: 72px;
+   font-size: 12px;
+}
+
+.content .content_header {
+   position: relative;
+   margin: 10px 0;
+   border-bottom: 2px solid #3C6188;
+}
+
+.summary {
+   margin: 0;
+   padding: 5px 0 40px;
+   color: #666;   
+}
+
+fieldset {
+   border: 0;
+}
+
+.info {
+   margin-top: -20px;
+   padding: 40px 40px 20px;
+   border: 1px solid #e5e5e5;
+}
+
+#container .content input.inpt {
+   font-size: 14px;
+   display: block;
+   width: 100%;
+   height: 42px;
+   margin-bottom: 12px;
+   padding: 16px 13px;
+   color: black;
+   border: 2.5px solid #d9d9d9;
+   background: transparent; /* �닾紐낇븯寃�(諛곌꼍�깋 蹂댁씠�룄濡�) */
+   border-radius: 10px;
+   /* line-height: 25px;
+   height: 25px;
+   border: 1px solid #ccc; */
+}
+
+dt {
+   font-weight: 700;
+   float: left;
+   width: 80px;
+   height: 25px;
+}
+
+dd {
+   position: relative;
+   float: left;
+   width: 500px;
+   height: 25px;
+   vertical-align: top;
+}
+
+input {
+   line-height: 25px;
+   height: 25px;
+   vertical-align: top;
+   border: 1px solid #ccc;
+}
+
+/* ------------------------------------------------------ */
+/*                   footer.jsp                           */
+/* ------------------------------------------------------ */
+
+footer {
+	position: absolute;
+    display: flex;
+    padding: 10px 50px;
+    color: #757D75;
+    background-color: #F2F1EF;
+    margin-top: 100px;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer_left {
+    flex: 20%;
+    text-align: center;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.footer_right {
+    flex: 80%;
+    padding: 0;
+}
+
+.footer_right p {
+    font-size: 10px;
+}
+
+/* ------------------------------------------------------ */
+/*                   every jsp                            */
+/* ------------------------------------------------------ */
+section {
+   width: 1100px;
+   margin: auto;
+}

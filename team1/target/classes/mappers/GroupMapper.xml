@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acorn.mapper.GroupMapper">
+
+	<select id="listAll" resultType="com.acorn.team1.domain.GroupPageVO">
+		select g.id as gid, g.name as
+		gname, g.course_code as gccode, g.admin_id as gaid, c.name as cname,
+		c.state as cstate
+		from tbl_groups g
+		inner join tbl_course c on
+		(g.course_code = c.code)
+		order by c.state desc, c.code, g.name;
+	</select>
+
+	<select id="listAllT" resultType="com.acorn.team1.domain.GroupPageVO">
+		select g.id as gid, g.name as
+		gname, g.course_code as gccode, g.admin_id as gaid, c.name as cname,
+		c.state as cstate
+		from tbl_groups g
+		inner join tbl_course c on
+		(g.course_code = c.code)
+		where g.admin_id = #{admin_id}
+		order by c.state
+		desc, c.code, g.name;
+	</select>
+
+	<select id="countStudent"
+		resultType="com.acorn.team1.domain.GroupCountVO">
+		select g.id as gid, count(s.name) as scount
+		from tbl_groups
+		g
+		inner join tbl_student s on (s.groups_id = g.id)
+		group by g.id;
+	</select>
+
+
+	<select id="selectCourse" resultType="String">
+		select c.name as cname
+		from
+		tbl_groups g
+		inner join tbl_course c on
+		(g.course_code = c.code)
+		where
+		g.admin_id=#{admin_id} AND state='Running'
+		group by c.code;
+	</select>
+
+	<!-- 그룹 추가할 때, 사용 가능한 학생 목록 -->
+	<select id="noGroupStudent"
+		resultType="com.acorn.team1.domain.GroupMemberVO">
+		SELECT name, id
+		FROM tbl_student
+		WHERE
+		course_code=#{course_code}
+		AND groups_id IS NULL AND state='훈련중';
+	</select>
+
+	<insert id="createGroup">
+		INSERT INTO tbl_groups (name, course_code, admin_id)
+		VALUES (#{groupName}, #{courseCode}, #{adminId});
+	</insert>
+
+	<select id="getNewGroupId" resultType="Integer">
+		select id from tbl_groups
+		where name = #{groupName} and course_code = #{courseCode} and admin_id
+		= #{adminId}
+	</select>
+
+	<update id="updateGroupInfo">
+		update tbl_student set groups_id = #{groupId} where
+		id = #{id}
+	</update>
+
+
+	<!-- 그룹원 수정시에 나오는 조원 목록 -->
+	<select id="selectEditMemberList"
+		resultType="com.acorn.team1.domain.GroupMemberVO">
+		SELECT name, id
+		FROM tbl_student
+		WHERE
+		course_code=#{course_code}
+		AND groups_id=#{groups_id} AND state='훈련중' ;
+	</select>
+
+	<update id="updateNullId">
+		UPDATE tbl_student
+		SET groups_id=null
+		WHERE
+		id=#{student_id};
+	</update>
+
+	<update id="updateNull">
+		UPDATE tbl_student
+		SET groups_id=null
+		WHERE
+		groups_id=#{groups_id};
+	</update>
+
+
+	<delete id="deleteGroup">
+		DELETE FROM tbl_groups
+		WHERE id=#{groups_id}
+	</delete>
+
+	<select id="readCourseCode" resultType="String">
+		select code from
+		tbl_course where admin_id = #{adminId} and state =
+		"Running"
+	</select>
+
+	<select id="gnameExist"
+		parameterType="com.acorn.team1.domain.GroupNameDTO" resultType="int">
+		select
+		count(*)
+		from tbl_groups
+		WHERE course_code=#{course_code} AND
+		name=#{name};
+	</select>
+
+	<!-- 멤버 추가 -->
+	<update id="addMember">
+		update tbl_student
+		set groups_id=#{groupsid}
+		where id=#{student_id};
+	</update>
+
+</mapper>

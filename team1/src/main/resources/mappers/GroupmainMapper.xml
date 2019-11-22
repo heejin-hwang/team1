@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.acorn.mapper.GroupmainMapper">
+
+	<select id="listAssignment" resultType="com.acorn.team1.domain.CourseAssignmentListVO">
+	<![CDATA[
+	select
+		g.id as gid, g.name as gname, g.course_code as gccode, g.admin_id as gaid,
+		a.id as aid, a.name as aname, a.description as adescription, a.start_date as astart, a.end_date as aend, a.course_code as accode, a.admin_id as aadminid
+	from tbl_groups g
+	inner join tbl_assignment a on a.course_code = g.course_code
+	where g.course_code = #{course_code} and g.id = #{group_id};
+	]]>
+	</select>
+	
+	<select id="listMember" resultType="com.acorn.team1.domain.GroupMemberListVO">
+	<![CDATA[
+	select
+	g.id as gid, g.name as gname, g.course_code as gccode, g.admin_id as gaid,
+	s.id as sid, s.name as sname, s.course_code as sccode, s.groups_id as sgid
+	from tbl_groups g
+	inner join tbl_student s on s.groups_id = g.id
+	where s.course_code = #{course_code} and s.groups_id = #{group_id}
+	order by s.name;
+	]]>
+	</select>
+	
+	<select id="submitStatus" resultType="com.acorn.team1.domain.SubmitVO">
+	select * from tbl_submit where course_code = #{course_code} and groups_id = #{groups_id}
+	</select>
+	
+	<insert id="insert_tbl_submit">
+		insert into tbl_submit (course_code, assignment_id, groups_id) values (#{course_code}, #{assignment_id}, #{groups_id});
+	</insert>
+	
+	<insert id="insert_tbl_fileupload">
+		<selectKey resultType="int" keyProperty="id" order="BEFORE">
+            SELECT
+                IFNULL(MAX(id), 0) + 1 AS id
+            FROM tbl_fileupload
+        </selectKey>
+		insert into tbl_fileupload (id, name_key, name, path, size, group_id, submit_id) values (#{id}, #{name_key}, #{name}, #{path}, #{size}, #{group_id}, (select max(id) from tbl_submit));
+	</insert>
+	
+	<select id="checkSubmit" resultType="com.acorn.team1.domain.AssignmentSubmitVO">
+	select s.upload_date, s.course_code, s.assignment_id, s.groups_id, f.id, f.name_key, f.name, f.path, f.size, f.submit_id from tbl_submit s inner join tbl_fileupload f on s.id = f.submit_id where assignment_id = #{id} and groups_id = #{group_id};	
+	</select>
+	
+	<select id="getCourseName" resultType="String">
+	select name from tbl_course where code = #{course_code};
+	</select>
+	
+	<select id="getGroupName" resultType="String">
+	select name from tbl_groups where course_code = #{course_code} and id = #{group_id}
+	</select>
+	
+	<select id="getAssignmentName" resultType="String">
+	select name from tbl_assignment where id = #{assignment_id}
+	</select>
+	
+	<select id="getGroupsId" resultType="Integer">
+	select groups_id from tbl_student where id = #{studentId}
+	</select>
+
+</mapper>

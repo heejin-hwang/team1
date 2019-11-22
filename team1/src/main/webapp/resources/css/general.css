@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+/*공통적으로 들어갈 부분*/
+#box {
+	width: 900px;
+	margin: 0 auto;
+	/* cursor:pointer; */
+}
+
+.update {
+	float: right;
+}
+
+tr#head:first-child td {
+	font-size: 16px;
+	text-align: left;
+	font-weight: bold;
+	border-bottom: 2px;
+}
+
+#studentList {
+	text-align: center;
+}
+
+div#student {
+	width: 600px;
+	height: 300px;
+	margin: 0 auto;
+	overflow: scroll;
+	overflow-x: hidden
+}
+
+td.check {
+	text-align: left;
+}
+

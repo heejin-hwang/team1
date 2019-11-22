@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1" />
+	</beans:bean>
+
+	<beans:bean
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"></beans:property>
+	</beans:bean>
+
+	<context:component-scan
+		base-package="com.acorn.team1.controller" />
+
+	<!-- scheduler -->
+	<task:annotation-driven executor="myExecutor"
+		scheduler="jobScheduler" />
+	<task:executor id="myExecutor" pool-size="5" />
+	<task:scheduler id="jobScheduler" pool-size="10" />
+
+	<beans:bean
+		class="com.acorn.team1.interceptor.UserInterceptor"
+		id="userInterceptor">
+	</beans:bean>
+
+	<beans:bean
+		class="com.acorn.team1.interceptor.LoginInterceptor"
+		id="loginInterceptor">
+	</beans:bean>
+
+	<beans:bean
+		class="com.acorn.team1.interceptor.NoticeInterceptor"
+		id="noticeInterceptor">
+	</beans:bean>
+
+	<beans:bean
+		class="com.acorn.team1.interceptor.AttendanceInterceptor"
+		id="attendanceInterceptor">
+	</beans:bean>
+
+	<beans:bean class="com.acorn.team1.interceptor.MyPage_auth"
+		id="myPage_auth">
+	</beans:bean>
+
+	<beans:bean
+		class="com.acorn.team1.interceptor.MyPage_authorizationInterceptor"
+		id="myPage_authorizationInterceptor">
+	</beans:bean>
+
+	<beans:bean
+		class="com.acorn.team1.interceptor.NoticeCheckInterceptor"
+		id="noticeCheckInterceptor">
+	</beans:bean>
+	<beans:bean
+		class="com.acorn.team1.interceptor.FileNoticeCheckInterceptor"
+		id="fileNoticeCheckInterceptor">
+	</beans:bean>
+
+	<interceptors>
+		<interceptor>
+
+			<mapping path="/Notice/addNotice" />
+			<mapping path="/Notice/editNotice" />
+			<mapping path="/Notice/deleteNotice" />
+			<beans:ref bean="noticeInterceptor" />
+
+		</interceptor>
+
+		<interceptor>
+
+			<mapping path="/Member/loginPost" />
+			<beans:ref bean="loginInterceptor" />
+
+		</interceptor>
+
+		<interceptor>
+
+			<mapping path="/HOME/HOME" />
+			<mapping path="/Member/ChangeUserPassword" />
+			<mapping path="/Member/ChangeUserPasswordPost" />
+			<mapping path="/Notice/*" />
+			<mapping path="/Schedule/*" />
+			<mapping path="/Student/*" />
+			<mapping path="/Member/LoginPost" />
+			<beans:ref bean="userInterceptor" />
+
+		</interceptor>
+
+
+		<interceptor>
+
+			<mapping path="/Member/attendancePost" />
+			<mapping path="/Member/checkoutPost" />
+			<beans:ref bean="attendanceInterceptor" />
+
+		</interceptor>
+
+		<interceptor>
+
+			<mapping path="/HOME/authorizationPost" />
+			<beans:ref bean="myPage_auth" />
+
+		</interceptor>
+
+		<interceptor>
+
+			<mapping path="/HOME/editStudent" />
+			<beans:ref bean="myPage_authorizationInterceptor" />
+
+		</interceptor>
+		<interceptor>
+			<mapping path="/**/*" />
+			<mapping path="/Notice/*" />
+			<mapping path="/Student/*" />
+			<mapping path="/Member/*" />
+			<mapping path="/Schedule/*" />
+
+
+			<beans:bean id="webContentInterceptor"
+				class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+				<beans:property name="cacheSeconds" value="0" />
+				<beans:property name="useExpiresHeader" value="true" />
+				<beans:property name="useCacheControlHeader"
+					value="true" />
+				<beans:property name="useCacheControlNoStore"
+					value="true" />
+			</beans:bean>
+		</interceptor>
+
+
+		<interceptor>
+			<mapping path="/Notice/detailNotice" />
+			<mapping path="/Notice/deleteNotice" />
+			<mapping path="/Notice/editNotice" />
+			<beans:ref bean="noticeCheckInterceptor" />
+		</interceptor>
+
+		<interceptor>
+			<mapping path="/FileNotice/detailFileNotice" />
+			<mapping path="/FileNotice/deleteFileNotice" />
+			<mapping path="/FileNotice/editFileNotice" />
+			<beans:ref bean="fileNoticeCheckInterceptor" />
+		</interceptor>
+
+	</interceptors>
+
+	<beans:bean
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></beans:bean>
+
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="100000000"></beans:property>
+		<beans:property name="maxInMemorySize"
+			value="100000000"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="fileDownloadUtil"
+		class="com.acorn.team1.Util.FileDownloadUtil" />
+
+</beans:beans>
